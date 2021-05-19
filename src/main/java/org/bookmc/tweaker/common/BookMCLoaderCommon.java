@@ -40,7 +40,7 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
     @Override
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
-        classLoader.addTransformerExclusion("org.bookmc.loader."); // Disallow transformation of mod loading
+        classLoader.addClassLoaderExclusion("org.bookmc.loader."); // Redirect this stuff to the AppClassLoader
         MixinBootstrap.init();
 
         MixinEnvironment environment = MixinEnvironment.getDefaultEnvironment();
