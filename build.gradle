@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation "net.minecraft:launchwrapper:1.12"
+    implementation "com.github.BookMC:LegacyLauncher:2cbe27165a"
     compileOnly "com.github.BookMC:loader:72e49c6b97"
     compileOnly "org.spongepowered:mixin:0.7.11-SNAPSHOT"
 }
