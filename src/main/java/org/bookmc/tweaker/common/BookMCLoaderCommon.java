@@ -7,6 +7,7 @@ import org.bookmc.loader.Loader;
 import org.bookmc.loader.utils.ClassUtils;
 import org.bookmc.loader.utils.DiscoveryUtils;
 import org.bookmc.loader.vessel.ModVessel;
+import org.bookmc.transformer.TransformationHacks;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -42,7 +43,8 @@ public abstract class BookMCLoaderCommon implements ITweaker {
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
         // Redirect this stuff to the parent classloader
         classLoader.addClassLoaderExclusion("org.bookmc.loader.");
-        classLoader.addClassLoaderExclusion("org.spongepowered.");
+
+        TransformationHacks.hack();
 
         MixinBootstrap.init();
 
