@@ -40,7 +40,10 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
     @Override
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
-        classLoader.addClassLoaderExclusion("org.bookmc.loader."); // Redirect this stuff to the AppClassLoader
+        // Redirect this stuff to the parent classloader
+        classLoader.addClassLoaderExclusion("org.bookmc.loader.");
+        classLoader.addClassLoaderExclusion("org.spongepowered.");
+
         MixinBootstrap.init();
 
         MixinEnvironment environment = MixinEnvironment.getDefaultEnvironment();
