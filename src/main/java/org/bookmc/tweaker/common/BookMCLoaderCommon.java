@@ -7,7 +7,6 @@ import org.bookmc.loader.Loader;
 import org.bookmc.loader.utils.ClassUtils;
 import org.bookmc.loader.utils.DiscoveryUtils;
 import org.bookmc.loader.vessel.ModVessel;
-import org.bookmc.transformer.TransformationHacks;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -15,7 +14,6 @@ import org.spongepowered.asm.mixin.Mixins;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public abstract class BookMCLoaderCommon implements ITweaker {
     private File modsDirectory;
@@ -43,8 +41,6 @@ public abstract class BookMCLoaderCommon implements ITweaker {
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
         // Redirect this stuff to the parent classloader
         classLoader.addClassLoaderExclusion("org.bookmc.loader.");
-
-        TransformationHacks.hack(); // >:)
 
         MixinBootstrap.init();
 
