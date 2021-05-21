@@ -44,7 +44,7 @@ public abstract class BookMCLoaderCommon implements ITweaker {
         // Redirect this stuff to the parent classloader
         classLoader.addClassLoaderExclusion("org.bookmc.loader.");
 
-        TransformationHacks.hack();
+        TransformationHacks.hack(); // >:)
 
         MixinBootstrap.init();
 

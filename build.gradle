@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     implementation "com.github.BookMC:LegacyLauncher:2cbe27165a"
-    api "com.github.BookMC:mixin-transformation-hacks:792f023fb3"
+    api "com.github.BookMC:mixin-transformation-hacks:54884cf374"
     compileOnly "com.github.BookMC:loader:72e49c6b97"
     compileOnly "org.spongepowered:mixin:0.7.11-SNAPSHOT"
 }
