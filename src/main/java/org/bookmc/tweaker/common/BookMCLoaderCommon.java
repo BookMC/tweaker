@@ -3,6 +3,8 @@ package org.bookmc.tweaker.common;
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bookmc.loader.Loader;
 import org.bookmc.loader.utils.ClassUtils;
 import org.bookmc.loader.utils.DiscoveryUtils;
@@ -16,9 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BookMCLoaderCommon implements ITweaker {
+    private final Logger logger = LogManager.getLogger(this);
+
     private static File modsDirectory;
 
     private final List<String> args = new ArrayList<>();
+
+    private String version;
 
     @Override
     public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {
@@ -34,6 +40,7 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
         if (profile != null) {
             addArg("version", profile);
+            this.version = profile;
         }
     }
 
@@ -60,9 +67,11 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
         loadModMixins(modsDirectory);
 
-        String version = args.get(args.indexOf("--version") + 1);
-
-        loadModMixins(new File(modsDirectory, version));
+        if (version != null) {
+            loadModMixins(new File(modsDirectory, version));
+        } else {
+            logger.error("Failed to detect the game version! Mods inside the game version's mod folder will not be loaded!");
+        }
 
         if (environment.getObfuscationContext() == null) {
             environment.setObfuscationContext("notch"); // Switch's to notch mappings

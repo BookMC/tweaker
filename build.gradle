@@ -17,7 +17,10 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.BookMC:LegacyLauncher:2cbe27165a"
+    compileOnly "com.github.BookMC:LegacyLauncher:2cbe27165a"
     compileOnly "com.github.BookMC:loader:72e49c6b97"
     compileOnly "org.spongepowered:mixin:0.7.11-SNAPSHOT"
+
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0-beta9'
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0-beta9'
 }
