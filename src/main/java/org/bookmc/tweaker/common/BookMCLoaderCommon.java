@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BookMCLoaderCommon implements ITweaker {
-    private File modsDirectory;
+    private static File modsDirectory;
 
     private final List<String> args = new ArrayList<>();
 
@@ -101,5 +101,9 @@ public abstract class BookMCLoaderCommon implements ITweaker {
                 Mixins.addConfiguration(mixinEntrypoint);
             }
         }
+    }
+
+    public static File getModsDirectory() {
+        return modsDirectory;
     }
 }
