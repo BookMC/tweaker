@@ -23,4 +23,6 @@ dependencies {
 
     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0-beta9'
     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0-beta9'
+
+    api 'com.github.BookMC:srg-processor:3721e9bb0c'
 }

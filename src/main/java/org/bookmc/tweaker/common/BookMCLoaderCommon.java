@@ -9,6 +9,9 @@ import org.bookmc.loader.Loader;
 import org.bookmc.loader.utils.ClassUtils;
 import org.bookmc.loader.utils.DiscoveryUtils;
 import org.bookmc.loader.vessel.ModVessel;
+import org.bookmc.srg.SrgProcessor;
+import org.bookmc.tweaker.remapper.MixinRemapper;
+import org.bookmc.tweaker.utils.SRGUtils;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -53,6 +56,13 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
         MixinEnvironment environment = MixinEnvironment.getDefaultEnvironment();
 
+        if (isDevelopment()) {
+            SrgProcessor processor = new SrgProcessor(new File(SRGUtils.getSrgDir(), "notch-mcp.srg"));
+            environment.getRemappers().add(new MixinRemapper(processor.process())); // Add our remapper
+        }
+
+        MixinBootstrap.init();
+
         injectIntoClassLoader(classLoader, environment);
 
         String passedDirectory = System.getProperty("book.discovery.folder", "mods");
@@ -71,10 +81,6 @@ public abstract class BookMCLoaderCommon implements ITweaker {
             loadModMixins(new File(modsDirectory, version));
         } else {
             logger.error("Failed to detect the game version! Mods inside the game version's mod folder will not be loaded!");
-        }
-
-        if (environment.getObfuscationContext() == null) {
-            environment.setObfuscationContext("notch"); // Switch's to notch mappings
         }
 
         // Load our transformation service only if it's available.
@@ -114,5 +120,9 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
     public static File getModsDirectory() {
         return modsDirectory;
+    }
+
+    public static boolean isDevelopment() {
+        return ClassUtils.isClassAvailable("net.minecraft.client.Minecraft");
     }
 }
