@@ -26,6 +26,8 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
     private String version;
 
+    private static MixinEnvironment.Side side = MixinEnvironment.Side.UNKNOWN;
+
     @Override
     public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {
         this.args.addAll(args);
@@ -82,12 +84,12 @@ public abstract class BookMCLoaderCommon implements ITweaker {
             classLoader.registerTransformer("org.bookmc.services.TransformationService");
         }
 
-        setSide(environment);
+        side = setSide(environment);
     }
 
     public abstract void injectIntoClassLoader(LaunchClassLoader classLoader, MixinEnvironment environment);
 
-    public abstract void setSide(MixinEnvironment environment);
+    public abstract MixinEnvironment.Side setSide(MixinEnvironment environment);
 
     @Override
     public String[] getLaunchArguments() {
@@ -114,5 +116,9 @@ public abstract class BookMCLoaderCommon implements ITweaker {
 
     public static File getModsDirectory() {
         return modsDirectory;
+    }
+
+    public static MixinEnvironment.Side getSide() {
+        return side;
     }
 }

@@ -15,8 +15,10 @@ public class BookMCServerLoader extends BookMCLoaderCommon {
     }
 
     @Override
-    public void setSide(MixinEnvironment environment) {
+    public MixinEnvironment.Side setSide(MixinEnvironment environment) {
         environment.setSide(MixinEnvironment.Side.SERVER);
+
+        return MixinEnvironment.Side.SERVER;
     }
 
     @Override
