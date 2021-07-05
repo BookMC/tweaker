@@ -9,6 +9,8 @@ import org.bookmc.loader.Loader;
 import org.bookmc.loader.utils.ClassUtils;
 import org.bookmc.loader.utils.DiscoveryUtils;
 import org.bookmc.loader.vessel.ModVessel;
+import org.bookmc.tweaker.game.MinecraftModVessel;
+import org.bookmc.tweaker.java.JavaModVessel;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -67,10 +69,12 @@ public abstract class BookMCLoaderCommon implements ITweaker {
             }
         }
 
+        Loader.registerVessel(new JavaModVessel());
         loadModMixins(modsDirectory);
 
         if (version != null) {
             loadModMixins(new File(modsDirectory, version));
+            Loader.registerVessel(new MinecraftModVessel(version));
         } else {
             logger.error("Failed to detect the game version! Mods inside the game version's mod folder will not be loaded!");
         }

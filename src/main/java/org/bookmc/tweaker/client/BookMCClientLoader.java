@@ -16,7 +16,6 @@ public class BookMCClientLoader extends BookMCLoaderCommon {
     @Override
     public MixinEnvironment.Side setSide(MixinEnvironment environment) {
         environment.setSide(MixinEnvironment.Side.CLIENT);
-
         return MixinEnvironment.Side.CLIENT;
     }
 
